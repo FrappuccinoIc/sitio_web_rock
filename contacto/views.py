@@ -11,5 +11,5 @@ def contacto(req):
             name = req.POST.get('name', '')
             email = req.POST.get('email', '')
             content = req.POST.get('content', '')
-            return redirect(reverse('contact') + '?ok')
+            return redirect(reverse('contacto') + '?ok')
     return render(req, 'contacto/contacto.html', {"form": contact_form})
