@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-adn4-18!5k5=#=cg1eiukd7dvw$ah__cnb%yff-ei8-82k9jon'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -29,7 +29,11 @@ INSTALLED_APPS = [
     'core',
     'publicaciones',
     'contacto',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

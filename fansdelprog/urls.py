@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from core import views as views_core
 from publicaciones import views as views_publicacion # Importar las funciones o métodos que quieres ejecutar al acceder una ruta
 from django.conf import settings
@@ -14,6 +14,7 @@ urlpatterns = [
     path('galeria/', views_core.galeria, name='galeria'),
     path('foro/', views_publicacion.foro, name='foro'),
     path('perfil/<int:usuario_id>', views_publicacion.perfil, name='perfil'),
+    path('contacto/', include("contacto.urls")),
     path('admin/', admin.site.urls),
 ]
 

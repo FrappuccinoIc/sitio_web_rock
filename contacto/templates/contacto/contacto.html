@@ -1,0 +1,25 @@
+{% extends 'publicaciones/base.html' %}
+{% block bloque_definicion %}
+<h2>Contactanos!</h2>
+{% endblock %}
+{% block bloque_contenido %}
+
+{% load crispy_forms_tags %}
+
+<div class="row">
+    <div class="col-12 col-md-6 offset-md-3">
+        <table>
+            {% if 'ok' in request.GET %}
+                <h3>Tu mensaje fue enviado exitosamente</h3>
+            {% endif %}
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ request.POST }}
+                {{ form|crispy }}
+                <button class="btn btn-primary">Enviar</button>
+            </form>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
