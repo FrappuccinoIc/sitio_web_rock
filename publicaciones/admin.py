@@ -5,6 +5,10 @@ class UsuarioAdmin(admin.ModelAdmin):
 
 class ProjectAdmin(admin.ModelAdmin):
     readonly_fields=('usuario', 'created','updated')
+    list_display=('titulo', 'usuario', 'created')
+    ordering=('titulo', 'usuario', 'created')
+    list_filter=('categorias', 'created')
+    search_fields=('titulo', 'usuario__username', 'created')
 
 class CategoriaAdmin(admin.ModelAdmin):
     readonly_fields=('created','updated')
