@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Publicacion, Usuario
 from django.core.paginator import Paginator
 
@@ -22,6 +22,7 @@ def foro(req):
 })
 
 def perfil(req, usuario_id):
+    usuario = get_object_or_404(Usuario, id=usuario_id)
     usuario = Usuario.objects.get(id = usuario_id)
     # Añadir página 404 con manejo de errores
     return render(req, "publicaciones/perfil.html", {"usuario": usuario})
