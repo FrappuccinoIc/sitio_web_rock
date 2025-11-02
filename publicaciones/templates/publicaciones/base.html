@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Fans del Prog</title>
+        <title>{{ NOMBRE_PAGINA }}</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
         
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +26,7 @@
                 <div class="navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-1 mb-md-0 align-items-center">
                         <li class="nav-item fs-4"><img class="logo me-3" src="{% static 'publicaciones/imagenes/fragile.png' %}" alt="logo"></li>
-                        <li class="nav-item"><p class="navbar-brand me-5 my-0 fs-3 oswald">Fans del Prog</p></li>
+                        <li class="nav-item"><p class="navbar-brand me-5 my-0 fs-3 oswald">{{ NOMBRE_PAGINA }}</p></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4" href="/">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4" href="/redes_sociales">Sobre Nosotros</a></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4" href="/faq">Preguntas Frecuentes</a></li>
@@ -59,7 +59,7 @@
                 <div class="row justify-content-center">
                     <div class="navbar-collapse">
                         <img class="img-fluid col-1" width="80px" src="{% static 'publicaciones/imagenes/GitHub_Invertocat_Logo.svg.png' %}" alt="github logo">
-                        <a class="navbar-brand fs-2 col-4 oswald" href="https://github.com/FrappuccinoIc/sitio_web_rock">Github</a>
+                        <a class="navbar-brand fs-2 col-4 oswald" href="{{ LINK_GITHUB }}">Github</a>
                     </div>
                 </div>
             </div>
