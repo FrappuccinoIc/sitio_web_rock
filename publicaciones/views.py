@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Publicacion, Usuario
 from django.core.paginator import Paginator
 
@@ -21,6 +22,7 @@ def foro(req):
         "page_range": page_range,  # se pasa al template
     })
 
+@login_required
 def perfil(req, usuario_id):
     usuario = get_object_or_404(Usuario, id=usuario_id)
     usuario = Usuario.objects.get(id = usuario_id)
