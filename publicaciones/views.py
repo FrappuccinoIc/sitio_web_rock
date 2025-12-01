@@ -45,12 +45,12 @@ def perfil(req, usuario_id):
     usuario = Usuario.objects.get(id = usuario_id)
     return render(req, "publicaciones/perfil.html", {"usuario": usuario})
 
-@permission_required('usuarios.delete_usuario', login_url='/restringido/')
+@permission_required('usuarios.delete_usuario', login_url='/foro/restringido')
 def eliminar_usuario(req, usuario_id):
     usuario = Usuario.objects.get(id = usuario_id)
     return render(req, "publicaciones/eliminar_usuario.html", {"usuario": usuario})
 
-@permission_required('publicaciones.delete_publicacion', login_url='/restringido/')
+@permission_required('publicaciones.delete_publicacion', login_url='/foro/restringido')
 def eliminar_post(req, publicacion_id):
     publicacion = Publicacion.objects.get(id = publicacion_id)
     return render(req, "publicaciones/eliminar_post.html", {"publicacion": publicacion})
