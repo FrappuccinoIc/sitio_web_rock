@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 
 class Usuario(models.Model):
     username = models.CharField(max_length=40, verbose_name="Nombre de Usuario")
-    descripcion = models.TextField(verbose_name = "Descripción")
-    imagen = models.ImageField(upload_to="projects", verbose_name="Perfil")
+    descripcion = models.TextField(verbose_name = "Descripción", default="Sin descripción")
+    imagen = models.ImageField(upload_to="projects", verbose_name="Perfil", default="projects\default.jpg")
     account = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Cuenta relacionada")
 
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
