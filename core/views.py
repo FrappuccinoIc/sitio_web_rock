@@ -1,9 +1,5 @@
-from django.shortcuts import render, redirect, HttpResponse
-from django.urls import reverse
+from django.shortcuts import render
 from django.contrib.auth import logout
-from django.contrib.auth.models import User, Group
-from publicaciones.models import Usuario
-from .forms import UserForm
 
 def home(req):
     cerrar_sesion = req.GET.get('salir')
@@ -19,65 +15,3 @@ def faq(req):
 
 def galeria(req):
     return render(req, "core/galeria.html")
-
-def registrar(req):
-    if req.method == 'POST':
-        form = UserForm(req.POST)
-
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            confirm_password = form.cleaned_data['confirm_password']
-
-            if password != confirm_password:
-                return redirect(reverse('registrar') + '?pass')
-
-            if User.objects.filter(username = username).exists():
-                return redirect(reverse('registrar') + '?fail')
-
-            user = User.objects.create_user(username = username, password = password)
-            usuario = Usuario.objects.create(username = username, account = user)
-
-            # Activar vista staff
-            user.is_staff = True
-            user.save()
-            usuario.save()
-            
-            group = Group.objects.get(name='Usuarios')
-            user.groups.add(group)
-
-            return redirect('home')
-
-    else:
-        form = UserForm()
-
-    return render(req, 'core/registrar.html', {'form': form})
-
-def registrar_admin(req):
-    if req.method == 'POST':
-        form = UserForm(req.POST)
-
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-
-            if User.objects.filter(username = username).exists():
-                return redirect(reverse('registrar') + '?fail')
-
-            user = User.objects.create_user(username = username, password = password)
-            usuario = Usuario.objects.create(username = username, account = user)
-
-            # Activar vista staff
-            user.is_staff = True
-            user.save()
-            usuario.save()
-            
-            group = Group.objects.get(name='Administradores')
-            user.groups.add(group)
-
-            return redirect('home')
-
-    else:
-        form = UserForm()
-
-    return render(req, 'core/registrar.html', {'form': form})

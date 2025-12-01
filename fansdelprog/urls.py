@@ -7,8 +7,9 @@ from django.conf.urls.static import static
 # Guardar cada nueva ruta aqui
 urlpatterns = [
     path('', include("core.urls")),
-    path('foro/', include("publicaciones.urls")),
     path('contacto/', include("contacto.urls")),
+    path('foro/', include("publicaciones.urls")),
+    path('usuarios/', include("usuarios.urls")),
     path('admin/', admin.site.urls),
 ]
 
