@@ -6,7 +6,30 @@
     <div class="container">
         <div class="row justify-content-start">
             <h1 class="mb-5">FORO PRINCIPAL</h1>
-        
+
+        <form method="get" class="mb-4">
+            <div class="row">
+                <div class="col-4">
+                    <input type="text" name="q" class="form-control" placeholder="Buscar por título..." value="{{ request.GET.q }}">
+                </div>
+
+                <div class="col-4">
+                    <select name="categoria" class="form-select">
+                        <option value="">Todas las categorías</option>
+                        {% for cat in categorias %}
+                            <option value="{{ cat.id }}" {% if request.GET.categoria == cat.id|stringformat:"s" %}selected{% endif %}>
+                                {{ cat.nombre }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-4">
+                    <button class="btn btn-primary" type="submit">Filtrar</button>
+                </div>
+            </div>
+        </form>
+
             {% for p in page_obj.object_list %}
             <div class="row mt-2 container justify-content-start border rounded border-top-3 border-bottom-3 border-light p-3">
                 {% if p.imagen %}
