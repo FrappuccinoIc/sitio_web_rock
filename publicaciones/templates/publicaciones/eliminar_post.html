@@ -1,10 +1,18 @@
 {% extends 'publicaciones/base.html' %}
-{% block bloque_definicion %}
-<h2>Confirmación eliminar publicación</h2>
-{% endblock %}
+
+{% if 'ok' in request.GET %}
+    <h3>Publicación eliminado exitosamente.</h3>
+{% else %}
+    <h2>Confirmación eliminar publicación</h2>
+{% endif %}
+
 {% block bloque_contenido %}
 
 <div class="container">
+    {% if 'ok' in request.GET %}
+        <button class="btn btn-primary"><a class="fs-4 text-light" href="/foro/perfil/{{ usuario.id }}">Volver atrás</a></button>
+    {% else %}
+
     <h2 class="fs-3 mb-4">Desea eliminar esta publicacion?</h2>
     
     <div class="row mt-2 mb-4 container justify-content-start border rounded border-top-3 border-bottom-3 border-light p-3">
@@ -23,10 +31,12 @@
         </div>
     </div>
 
-    <form action="">
+    <form action="{% url 'eliminar_post' publicacion.id %}" method="POST">
+        {% csrf_token %}
         <button class="btn btn-primary"><a class="fs-4 text-light" href="/foro">Volver atrás</a></button>
-        <button class="btn btn-danger fs-4">Eliminar publicación</button>
+        <button class="btn btn-danger fs-4" type="submit">Eliminar publicación</button>
     </form>
+    {% endif %}
 </div>
 
 

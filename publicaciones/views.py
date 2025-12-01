@@ -60,6 +60,9 @@ def eliminar_usuario(req, usuario_id):
 @permission_required('publicaciones.delete_publicacion', login_url='/foro/restringido')
 def eliminar_post(req, publicacion_id):
     publicacion = Publicacion.objects.get(id = publicacion_id)
+    if req.method == "POST":
+        publicacion.delete()
+        return redirect(reverse('foro'))
     return render(req, "publicaciones/eliminar_post.html", {"publicacion": publicacion})
 
 def restringido(req):
