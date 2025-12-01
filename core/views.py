@@ -15,3 +15,6 @@ def faq(req):
 
 def galeria(req):
     return render(req, "core/galeria.html")
+
+def restringido(req):
+    return render(req, "core/restringido.html")

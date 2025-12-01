@@ -1,9 +1,7 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required
-from django.core.exceptions import PermissionDenied
-from .models import Publicacion, Usuario, Categoria
-from django.contrib.auth.models import User
+from .models import Publicacion, Categoria
 from django.core.paginator import Paginator
 
 def foro(req):
@@ -41,29 +39,10 @@ def foro(req):
         "categorias": categorias,
     })
 
-@login_required
-def perfil(req, usuario_id):
-    #usuario = get_object_or_404(Usuario, id=usuario_id)
-    usuario = Usuario.objects.get(id = usuario_id)
-    return render(req, "publicaciones/perfil.html", {"usuario": usuario})
-
-@permission_required('usuarios.delete_usuario', login_url='/foro/restringido')
-def eliminar_usuario(req, usuario_id):
-    usuario = Usuario.objects.get(id = usuario_id)
-    cuenta = User.objects.get(id = usuario.account.id)
-    if req.method == "POST":
-        usuario.delete()
-        cuenta.delete()
-        return redirect(reverse('foro'))
-    return render(req, "publicaciones/eliminar_usuario.html", {"usuario": usuario})
-
-@permission_required('publicaciones.delete_publicacion', login_url='/foro/restringido')
+@permission_required('publicaciones.delete_publicacion', login_url='/restringido')
 def eliminar_post(req, publicacion_id):
     publicacion = Publicacion.objects.get(id = publicacion_id)
     if req.method == "POST":
         publicacion.delete()
         return redirect(reverse('foro'))
     return render(req, "publicaciones/eliminar_post.html", {"publicacion": publicacion})
-
-def restringido(req):
-    return render(req, "publicaciones/restringido.html")

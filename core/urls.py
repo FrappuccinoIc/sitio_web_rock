@@ -6,4 +6,5 @@ urlpatterns = [
     path('faq/', views.faq, name = "faq"),
     path('redes_sociales/', views.redes_sociales, name = "redes"),
     path('galeria/', views.galeria, name = "galeria"),
+    path('restringido/', views.restringido, name='restringido'),
 ]
