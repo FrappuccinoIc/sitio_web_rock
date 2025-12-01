@@ -12,7 +12,7 @@ def conseguir_crear_grupo(grupo, perm_strings):
         app_label, codename = perm_string.split('.')
         perm = Permission.objects.get(
             content_type__app_label = app_label,
-            codename = codename.split('_', 1)[1]  # remove app prefix if needed
+            codename = codename
         )
         group.permissions.add(perm)
 
