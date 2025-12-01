@@ -128,8 +128,8 @@ LOGIN_URL = '/admin/login/'
 # Mailtrap SMTP
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "sandbox.smtp.mailtrap.io"     # o el HOST que te de Mailtrap
-EMAIL_HOST_USER = "4d0b88d60d8ec8"
-EMAIL_HOST_PASSWORD = "****0369"
+EMAIL_HOST_USER = "cb67ad9a618dc4"
+EMAIL_HOST_PASSWORD = "3027928ba42e25"
 EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
