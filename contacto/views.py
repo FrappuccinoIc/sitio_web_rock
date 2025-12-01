@@ -1,16 +1,27 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.core.mail import send_mail
 from .forms import ContactForm
 
 def contacto(req):
-    contact_form = ContactForm()
+    form = ContactForm()
+
     if req.method == "POST":
-        contact_form = ContactForm(data = req.POST)
-        if contact_form.is_valid():
-            # get de un POST siempre debe conseguir una tupla al menos. Ya que nosotros queremos solo un valor, el segundo valor estará vacío.
-            name = req.POST.get('name', '')
-            email = req.POST.get('email', '')
-            content = req.POST.get('content', '')
+        form = ContactForm(req.POST)
+        if form.is_valid():
+            name = form.cleaned_data.get('name')
+            email = form.cleaned_data.get('email')
+            content = form.cleaned_data.get('content')
+
+            mensaje = f"Mensaje de {name} <{email}>:\n\n{content}"
+
+            send_mail(
+                subject="Nuevo mensaje desde el formulario de contacto",
+                message=mensaje,
+                from_email=email,
+                recipient_list=["sandbox.smtp.mailtrap.io"],  # Mailtrap te da uno propio
+            )
+
             return redirect(reverse('contacto') + '?ok')
 
-    return render(req, 'contacto/contacto.html', {"form": contact_form})
+    return render(req, 'contacto/contacto.html', {"form": form})
