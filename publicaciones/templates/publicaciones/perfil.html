@@ -16,6 +16,12 @@
         <h3 class="col-6">Nombre de usuario: {{ usuario.username }}</h3>
     </div>
     <h4 class="ps-4 p-3" >Descripción: {{ usuario.descripcion }}</h4>
+
+    {% if 'usuarios.delete_usuario' in perms %}
+    <h2><a href="./eliminar/{{ usuario.id }}" class="text-danger">Eliminar usuario</a></h2>
+    {% endif %}
 </div>
+
+
 
 {% endblock %}

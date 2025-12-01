@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
+from django.core.exceptions import PermissionDenied
 from .models import Publicacion, Usuario, Categoria
 from django.core.paginator import Paginator
 
@@ -40,7 +41,15 @@ def foro(req):
 
 @login_required
 def perfil(req, usuario_id):
-    usuario = get_object_or_404(Usuario, id=usuario_id)
+    #usuario = get_object_or_404(Usuario, id=usuario_id)
     usuario = Usuario.objects.get(id = usuario_id)
     # Añadir página 404 con manejo de errores
     return render(req, "publicaciones/perfil.html", {"usuario": usuario})
+
+@permission_required('usuarios.delete_usuario', login_url='/restringido/')
+def eliminar_usuario(req, usuario_id):
+    usuario = Usuario.objects.get(id = usuario_id)
+    return render(req, "publicaciones/eliminar_usuario.html", {"usuario": usuario})
+
+def restringido(req):
+    return render(req, "publicaciones/restringido.html")
