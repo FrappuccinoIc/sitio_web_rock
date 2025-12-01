@@ -43,13 +43,17 @@ def foro(req):
 def perfil(req, usuario_id):
     #usuario = get_object_or_404(Usuario, id=usuario_id)
     usuario = Usuario.objects.get(id = usuario_id)
-    # Añadir página 404 con manejo de errores
     return render(req, "publicaciones/perfil.html", {"usuario": usuario})
 
 @permission_required('usuarios.delete_usuario', login_url='/restringido/')
 def eliminar_usuario(req, usuario_id):
     usuario = Usuario.objects.get(id = usuario_id)
     return render(req, "publicaciones/eliminar_usuario.html", {"usuario": usuario})
+
+@permission_required('publicaciones.delete_publicacion', login_url='/restringido/')
+def eliminar_post(req, publicacion_id):
+    publicacion = Publicacion.objects.get(id = publicacion_id)
+    return render(req, "publicaciones/eliminar_post.html", {"publicacion": publicacion})
 
 def restringido(req):
     return render(req, "publicaciones/restringido.html")

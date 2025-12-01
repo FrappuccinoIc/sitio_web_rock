@@ -44,6 +44,10 @@
                         {% endfor %}
                     </h4>
                     <p class="fs-5">{{ p.descripcion }}</p>
+
+                    {% if 'publicaciones.delete_publicacion' in perms %}
+                    <h2 class="text-end align-self-end"><a href="./eliminar/{{ p.id }}" class="text-danger">Eliminar</a></h2>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}

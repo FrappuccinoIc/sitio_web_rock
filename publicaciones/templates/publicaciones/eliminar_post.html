@@ -1,0 +1,34 @@
+{% extends 'publicaciones/base.html' %}
+{% block bloque_definicion %}
+<h2>Confirmación eliminar publicación</h2>
+{% endblock %}
+{% block bloque_contenido %}
+
+<div class="container">
+    <h2 class="fs-3 mb-4">Desea eliminar esta publicacion?</h2>
+    
+    <div class="row mt-2 mb-4 container justify-content-start border rounded border-top-3 border-bottom-3 border-light p-3">
+        {% if publicacion.imagen %}
+        <img class="img-responsive col-3" src="{{ publicacion.imagen.url }}" alt="post_imagen">
+        {% endif %}
+        <div class="col-9 text-start">
+            <h3 class="text-start">{{ publicacion.titulo }} - <a href="{% url 'perfil' publicacion.usuario.id %}">{{ publicacion.usuario.username }}</a></h3>
+            <h4 class="text-start text-muted fs-4">
+                Categorias: 
+                {% for c in publicacion.categorias.all %}
+                    {{c.nombre}}{% if not forloopublicacion.last %}, {% endif %}
+                {% endfor %}
+            </h4>
+            <p class="fs-5">{{ publicacion.descripcion }}</p>
+        </div>
+    </div>
+
+    <form action="">
+        <button class="btn btn-primary"><a class="fs-4 text-light" href="/foro">Volver atrás</a></button>
+        <button class="btn btn-danger fs-4">Eliminar publicación</button>
+    </form>
+</div>
+
+
+
+{% endblock %}
