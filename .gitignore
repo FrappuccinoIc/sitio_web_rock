@@ -1,10 +1,10 @@
-core/__pycache__/
-core/migrations/__pycache__/
-publicaciones/__pycache__/
-publicaciones/migrations/__pycache__/
-fansdelprog/__pycache__/
-fansdelprog/migrations/__pycache__/
 contacto/__pycache__/
 contacto/migrations/__pycache__/
+core/__pycache__/
+core/migrations/__pycache__/
+fansdelprog/__pycache__/
+fansdelprog/migrations/__pycache__/
+publicaciones/__pycache__/
+publicaciones/migrations/__pycache__/
 usuarios/__pycache__/
 usuarios/migrations/__pycache__/
