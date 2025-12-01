@@ -16,8 +16,11 @@
     {% if form.errors %}
         {{ form.errors }}
     {% endif %}
-    {% if 'fail' in request.GET %}
-        <h3 class="text-warning">Ese usuario ya existe.</h3>
+
+    {% if 'pass' in request.GET %}
+        <h3 class="p-3 mb-4 bg-warning rounded-3 shadow-sm">Contraseña no coincide.</h3>
+    {% elif 'fail' in request.GET %}
+        <h3 class="p-3 mb-4 bg-warning rounded-3 shadow-sm">Ese usuario ya existe.</h3>
     {% endif %}
 
     <form method="POST">

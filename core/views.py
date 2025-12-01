@@ -27,6 +27,10 @@ def registrar(req):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
+            confirm_password = form.cleaned_data['confirm_password']
+
+            if password != confirm_password:
+                return redirect(reverse('registrar') + '?pass')
 
             if User.objects.filter(username = username).exists():
                 return redirect(reverse('registrar') + '?fail')
