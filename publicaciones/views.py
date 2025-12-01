@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied
 from .models import Publicacion, Usuario, Categoria
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 
 def foro(req):
@@ -48,6 +50,11 @@ def perfil(req, usuario_id):
 @permission_required('usuarios.delete_usuario', login_url='/foro/restringido')
 def eliminar_usuario(req, usuario_id):
     usuario = Usuario.objects.get(id = usuario_id)
+    cuenta = User.objects.get(id = usuario.account.id)
+    if req.method == "POST":
+        usuario.delete()
+        cuenta.delete()
+        return redirect(reverse('foro'))
     return render(req, "publicaciones/eliminar_usuario.html", {"usuario": usuario})
 
 @permission_required('publicaciones.delete_publicacion', login_url='/foro/restringido')

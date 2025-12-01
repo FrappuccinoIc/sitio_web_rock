@@ -4,7 +4,7 @@ class UsuarioAdmin(admin.ModelAdmin):
     readonly_fields=('created', 'updated')
 
 class ProjectAdmin(admin.ModelAdmin):
-    readonly_fields=('usuario', 'created','updated')
+    readonly_fields=('created','updated')
     list_display=('titulo', 'usuario', 'created')
     ordering=('created', 'titulo', 'usuario')
     list_filter=('categorias', 'created')
