@@ -1,9 +1,22 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group, Permission
 from .models import Usuario
 from .forms import UserForm
+
+def conseguir_crear_grupo(grupo, perm_strings):
+    group, created = Group.objects.get_or_create(name=grupo) # consigueme un grupo que exista con este nombre. Si no existe, crealo, y dime con un booleano si justo se creo
+
+    for perm_string in perm_strings:
+        app_label, codename = perm_string.split('.')
+        perm = Permission.objects.get(
+            content_type__app_label = app_label,
+            codename = codename.split('_', 1)[1]  # remove app prefix if needed
+        )
+        group.permissions.add(perm)
+
+    return group
 
 def registrar(req):
     if req.method == 'POST':
@@ -28,7 +41,14 @@ def registrar(req):
             user.save()
             usuario.save()
             
-            group = Group.objects.get(name='Usuarios')
+            group_perms = {
+                'publicaciones.add_publicacion',
+                'usuarios.view_usuario', 'usuarios.change_usuario',
+                'publicaciones.view_usuario', 'auth.view_user',
+                'auth.delete_user', 'publicaciones.view_categoria',
+            }
+
+            group = conseguir_crear_grupo("Usuarios", group_perms)
             user.groups.add(group)
 
             return redirect('home')
@@ -61,7 +81,20 @@ def registrar_admin(req):
             user.save()
             usuario.save()
             
-            group = Group.objects.get(name='Administradores')
+            group_perms = {
+                'sessions.add_session', 'publicaciones.change_usuario', 'auth.delete_group',
+                'publicaciones.change_categoria', 'publicaciones.delete_usuario', 'auth.delete_permission',
+                'admin.add_logentry', 'admin.delete_logentry', 'usuarios.add_usuario', 'contenttypes.add_contenttype',
+                'publicaciones.add_usuario', 'sessions.view_session', 'auth.delete_user', 'publicaciones.view_usuario',
+                'sessions.delete_session', 'admin.view_logentry', 'sessions.change_session', 'auth.change_user',
+                'auth.view_user', 'auth.view_group', 'auth.change_permission', 'auth.change_group', 'usuarios.view_usuario',
+                'publicaciones.add_publicacion', 'publicaciones.view_categoria', 'publicaciones.view_publicacion',
+                'publicaciones.delete_publicacion', 'admin.change_logentry', 'auth.add_group', 'auth.add_user',
+                'publicaciones.add_categoria', 'auth.view_permission', 'contenttypes.view_contenttype', 'contenttypes.change_contenttype',
+                'contenttypes.delete_contenttype', 'usuarios.delete_usuario', 'auth.add_permission', 'publicaciones.delete_categoria'
+            }
+
+            group = conseguir_crear_grupo("Administradores", group_perms)
             user.groups.add(group)
 
             return redirect('home')
